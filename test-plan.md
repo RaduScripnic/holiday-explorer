@@ -1,0 +1,3 @@
+# 🧪 Test Plan – Holiday Explorer
+...
+(Already provided above — omitted here for brevity)
