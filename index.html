@@ -14,13 +14,25 @@
 
   <main>
     <section class="search-section">
-      <input type="text" id="city-input" placeholder="Enter a city..." aria-label="City search input"/>
-      <button id="search-btn">Search</button>
-      <p id="error-message" class="error"></p>
+      <!-- Added aria-label for accessibility -->
+      <input type="text" id="city-input" placeholder="Enter a city..." aria-label="City search input for holiday destination"/>
+      <!-- Added aria-label for accessibility -->
+      <button id="search-btn" aria-label="Search for city on map">Search</button>
+      <!-- Added aria-live to announce dynamic content changes (like error messages) for screen readers -->
+      <p id="error-message" class="error" aria-live="polite"></p>
     </section>
 
     <section id="map-section">
-      <div id="map"></div>
+      <!-- Added aria-label for accessibility to describe the map -->
+      <div id="map" role="application" aria-label="Interactive map displaying holiday destinations and points of interest"></div>
+    </section>
+
+    <section class="info-section">
+      <!-- Placeholder for graphics/images requirement -->
+      <img src="https://placehold.co/600x200/ADD8E6/000?text=Your+Adventure+Starts+Here" 
+           alt="Placeholder image showing a serene travel landscape, indicating the start of an adventure" 
+           class="info-graphic">
+      <p>Discover amazing places, from bustling city centers to serene natural wonders. Plan your perfect getaway with ease.</p>
     </section>
   </main>
 
@@ -28,8 +40,12 @@
     <p>&copy; 2025 Holiday Explorer</p>
   </footer>
 
+  <!-- Your custom JavaScript file (script.js) should load BEFORE the Google Maps API script -->
   <script src="assets/js/script.js"></script>
 
+  <!-- The Google Maps API script must load AFTER your custom script if initMap is defined in script.js -->
+  <!-- Replace YOUR_API_KEY with your actual Google Maps API Key -->
+  <!-- Note: The 'loading=async' parameter is recommended for optimal performance but not strictly required for functionality. -->
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfdiLt8zECqmXKQ24eBCv0lzgbB0FLjXs&libraries=places&callback=initMap">
   </script>
