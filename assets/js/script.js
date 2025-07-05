@@ -43,6 +43,40 @@ document.addEventListener("DOMContentLoaded", () => {
   const cityInput = document.getElementById("city-input");
   const errorMsg = document.getElementById("error-message");
 
+  // Get the booking buttons
+  const flightsBtn = document.getElementById("flights-btn");
+  const hotelsBtn = document.getElementById("hotels-btn");
+
+  // NEW: Get elements for the random destination section
+  const continentSelect = document.getElementById("continent-select");
+  const suggestBtn = document.getElementById("suggest-btn");
+  const suggestedCityDisplay = document.getElementById("suggested-city-display");
+  const randomErrorMsg = document.getElementById("random-error-message");
+
+
+  // Data for random capital cities (a curated list)
+  const capitalCities = {
+    africa: [
+      "Cairo", "Pretoria", "Nairobi", "Accra", "Abuja", "Marrakech", "Addis Ababa"
+    ],
+    asia: [
+      "Tokyo", "Beijing", "New Delhi", "Bangkok", "Seoul", "Singapore", "Dubai", "Jakarta"
+    ],
+    europe: [
+      "Paris", "London", "Rome", "Berlin", "Madrid", "Amsterdam", "Prague", "Lisbon", "Vienna", "Copenhagen"
+    ],
+    north_america: [
+      "Washington D.C.", "Ottawa", "Mexico City", "Kingston", "Panama City"
+    ],
+    south_america: [
+      "Brasília", "Buenos Aires", "Lima", "Santiago", "Bogotá", "Montevideo"
+    ],
+    oceania: [
+      "Canberra", "Wellington", "Suva", "Port Moresby"
+    ]
+  };
+
+
   if (searchBtn) {
     searchBtn.addEventListener("click", () => {
       const city = cityInput.value.trim();
@@ -60,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Clear existing markers before performing a new search
-      clearMarkers(); // ADD THIS LINE HERE
+      clearMarkers();
 
       const geocoder = new google.maps.Geocoder();
       geocoder.geocode({ address: city }, (results, status) => {
@@ -77,11 +111,11 @@ document.addEventListener("DOMContentLoaded", () => {
           };
 
           service.nearbySearch(request, (places, searchStatus) => {
-            if (searchStatus === google.maps.places.PlacesServiceStatus.OK && places && places.length > 0) {
+            if (searchStatus === google.places.PlacesServiceStatus.OK && places && places.length > 0) {
               places.forEach(place => {
                 createMarker(place);
               });
-            } else if (searchStatus === google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
+            } else if (searchStatus === google.places.PlacesServiceStatus.ZERO_RESULTS) {
               errorMsg.textContent = `No attractions, restaurants, or lodging found near ${city}.`;
             } else {
               errorMsg.textContent = `Places search failed: ${searchStatus}. Please try again later.`;
@@ -93,6 +127,44 @@ document.addEventListener("DOMContentLoaded", () => {
           console.error('Geocoder failed with status:', status);
         }
       });
+    });
+  }
+
+  // Add event listeners for the new booking buttons
+  if (flightsBtn) {
+    flightsBtn.addEventListener("click", () => {
+      window.open("https://www.skyscanner.net/", "_blank");
+    });
+  }
+
+  if (hotelsBtn) {
+    hotelsBtn.addEventListener("click", () => {
+      window.open("https://www.booking.com/", "_blank");
+    });
+  }
+
+  // NEW: Event listener for random destination suggestion
+  if (suggestBtn) {
+    suggestBtn.addEventListener("click", () => {
+      const selectedContinent = continentSelect.value;
+      suggestedCityDisplay.textContent = ""; // Clear previous suggestion
+      randomErrorMsg.textContent = ""; // Clear previous error
+
+      if (!selectedContinent) {
+        randomErrorMsg.textContent = "Please choose a continent.";
+        return;
+      }
+
+      const cities = capitalCities[selectedContinent];
+      if (cities && cities.length > 0) {
+        const randomIndex = Math.floor(Math.random() * cities.length);
+        const randomCity = cities[randomIndex];
+        suggestedCityDisplay.textContent = `How about: ${randomCity}!`;
+        cityInput.value = randomCity; // Populate search input with the suggested city
+        searchBtn.click(); // Programmatically click the search button to show on map
+      } else {
+        randomErrorMsg.textContent = "No cities available for this continent.";
+      }
     });
   }
 });
@@ -119,7 +191,7 @@ function createMarker(place) {
     title: place.name
   });
 
-  markers.push(marker); // ADD THIS LINE: Add the new marker to our global array
+  markers.push(marker); // Add the new marker to our global array
 
   marker.addListener("click", () => {
     infowindow.setContent(`

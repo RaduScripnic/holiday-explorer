@@ -14,38 +14,57 @@
 
   <main>
     <section class="search-section">
-      <!-- Added aria-label for accessibility -->
       <input type="text" id="city-input" placeholder="Enter a city..." aria-label="City search input for holiday destination"/>
-      <!-- Added aria-label for accessibility -->
       <button id="search-btn" aria-label="Search for city on map">Search</button>
-      <!-- Added aria-live to announce dynamic content changes (like error messages) for screen readers -->
       <p id="error-message" class="error" aria-live="polite"></p>
     </section>
 
+    <section class="random-destination-section">
+      <h2>Can't Decide Where to Go?</h2>
+      <p>Let us help you discover your next great adventure!</p>
+      <div class="random-controls">
+        <label for="continent-select" class="sr-only">Choose a continent:</label>
+        <select id="continent-select" aria-label="Select a continent for random destination suggestion">
+          <option value="">-- Choose a Continent --</option>
+          <option value="africa">Africa</option>
+          <option value="asia">Asia</option>
+          <option value="europe">Europe</option>
+          <option value="north_america">North America</option>
+          <option value="south_america">South America</option>
+          <option value="oceania">Oceania</option>
+        </select>
+        <button id="suggest-btn" aria-label="Suggest a random capital city from the selected continent">Suggest Destination</button>
+      </div>
+      <p id="suggested-city-display" class="suggested-city" aria-live="polite"></p>
+      <p id="random-error-message" class="error" aria-live="polite"></p>
+      <p class="visa-disclaimer"><strong>Important:</strong> Please check if a visa is required before considering buying a ticket or making travel plans.</p>
+    </section>
     <section id="map-section">
-      <!-- Added aria-label for accessibility to describe the map -->
       <div id="map" role="application" aria-label="Interactive map displaying holiday destinations and points of interest"></div>
     </section>
 
+    <section class="booking-section">
+      <h2>Ready to Book Your Adventure?</h2>
+      <p>Explore flights and hotels for your dream destination.</p>
+      <div class="booking-buttons">
+        <button id="flights-btn" aria-label="Search for flights on Skyscanner">Find Flights</button>
+        <button id="hotels-btn" aria-label="Search for hotels on Booking.com">Find Hotels</button>
+      </div>
+    </section>
     <section class="info-section">
-      <!-- Placeholder for graphics/images requirement -->
-      <img src="assets/docs/design/Escape to Rome (1).png" 
-           alt="rome image showing a serene travel landscape, indicating the start of an adventure" 
+      <img src="assets/docs/design/Escape to Rome.png"
+           alt="rome travel landscape, indicating the start of an adventure"
            class="info-graphic">
       <p>Discover amazing places, from bustling city centers to serene natural wonders. Plan your perfect getaway with ease.</p>
     </section>
-  </main>
+    </main>
 
   <footer>
-    <p>&copy; 2025 Holiday Explorer</p>
+    <p>© 2025 Holiday Explorer</p>
   </footer>
 
-  <!-- Your custom JavaScript file (script.js) should load BEFORE the Google Maps API script -->
   <script src="assets/js/script.js"></script>
 
-  <!-- The Google Maps API script must load AFTER your custom script if initMap is defined in script.js -->
-  <!-- Replace YOUR_API_KEY with your actual Google Maps API Key -->
-  <!-- Note: The 'loading=async' parameter is recommended for optimal performance but not strictly required for functionality. -->
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfdiLt8zECqmXKQ24eBCv0lzgbB0FLjXs&libraries=places&callback=initMap">
   </script>

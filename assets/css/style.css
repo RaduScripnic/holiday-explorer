@@ -1,4 +1,5 @@
-/* General body and layout styling */
+/* General Body and Layout Styling */
+/* Styles for the overall page structure, font, background, and flexible layout. */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -10,7 +11,8 @@ body {
   min-height: 100vh; /* Ensure body takes full viewport height */
 }
 
-/* Header and Footer common styling */
+/* Header and Footer Common Styling */
+/* Styles applied to both the header and footer for consistent branding. */
 header, footer {
   background: #0a3d62; /* Dark blue background */
   color: white; /* White text */
@@ -18,7 +20,8 @@ header, footer {
   text-align: center;
 }
 
-/* Main content area styling */
+/* Main Content Area Styling */
+/* Styles for the central content area, allowing it to grow and centering its children. */
 main {
   flex-grow: 1; /* Allows main content to expand and fill available space */
   padding: 1em;
@@ -27,7 +30,8 @@ main {
   align-items: center; /* Center items horizontally within main */
 }
 
-/* Search section styling */
+/* Search Section Styling */
+/* Styles for the city search input field and button area. */
 .search-section {
   padding: 1em;
   text-align: center;
@@ -36,7 +40,8 @@ main {
   max-width: 600px; /* Limit max width for readability */
 }
 
-/* Input field styling */
+/* Input Field Styling */
+/* General styles for text input fields across the application. */
 input[type="text"] {
   padding: 0.5em;
   width: 60%; /* Relative width */
@@ -47,7 +52,8 @@ input[type="text"] {
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
-/* Button styling */
+/* Button Styling */
+/* General styles for all interactive buttons on the page, including hover effects. */
 button {
   padding: 0.5em 1em;
   background: #38ada9; /* Teal background */
@@ -62,22 +68,26 @@ button:hover {
   background: #079992; /* Darker teal on hover */
 }
 
-/* Focus styles for interactive elements (accessibility) */
+/* Focus Styles for Interactive Elements (Accessibility) */
+/* Provides visual feedback when interactive elements are tabbed to or focused. */
 input[type="text"]:focus,
-button:focus {
+button:focus,
+select:focus { /* Added select for random destination dropdown */
   outline: 2px solid #007bff; /* Blue outline on focus */
   outline-offset: 2px; /* Offset the outline slightly */
 }
 
-/* Error message styling */
-#error-message {
+/* Error Message Styling */
+/* Styles for displaying dynamic error messages to the user. */
+#error-message, #random-error-message { /* Applied to both error messages */
   color: red;
   margin-top: 0.5em;
   font-size: 0.9em;
   min-height: 1.2em; /* Reserve space to prevent layout shifts when message appears */
 }
 
-/* Map section container styling */
+/* Map Section Container Styling */
+/* Styles for the container holding the Google Map. */
 #map-section {
   width: 100%; /* Take full width of its container */
   max-width: 900px; /* Limit max width for better presentation on large screens */
@@ -88,14 +98,16 @@ button:focus {
   overflow: hidden; /* Ensures map adheres to border-radius */
 }
 
-/* Map div styling - crucial for visibility */
+/* Map Div Styling - Crucial for Visibility */
+/* Ensures the map canvas takes up the full space of its container. */
 #map {
   width: 100%; /* Map div takes full width of its container */
   height: 100%; /* Map div takes full height of its container */
   background-color: #e0e0e0; /* Placeholder background before map loads */
 }
 
-/* Info section with graphic */
+/* Info Section with Graphic */
+/* Styles for the information display area, including a placeholder graphic. */
 .info-section {
   margin-top: 2em;
   padding: 1em;
@@ -113,12 +125,122 @@ button:focus {
   margin-bottom: 1em;
 }
 
-/* Footer position */
+/* Booking Section Styles */
+/* Styles for the section providing links to external booking websites. */
+.booking-section {
+  margin-top: 2em;
+  padding: 1.5em; /* Slightly more padding */
+  text-align: center;
+  max-width: 900px;
+  background-color: #e6f0f7; /* Lighter blue background to distinguish */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.booking-section h2 {
+  color: #0a3d62; /* Match header blue */
+  margin-bottom: 0.5em;
+}
+
+.booking-section p {
+  margin-bottom: 1em;
+}
+
+.booking-buttons {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+  justify-content: center;
+  gap: 1em; /* Space between buttons */
+}
+
+.booking-buttons button {
+  padding: 0.8em 1.5em; /* Larger buttons */
+  font-size: 1.1em;
+  min-width: 150px; /* Ensure minimum width */
+}
+
+/* Random Destination Section Styles */
+/* Styles for the section that suggests random capital cities based on continent. */
+.random-destination-section {
+  margin-top: 2em;
+  padding: 1.5em;
+  text-align: center;
+  max-width: 900px;
+  background-color: #f7fcfd; /* Very light blue/grey */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border: 1px solid #d0e0e0; /* Subtle border */
+}
+
+.random-destination-section h2 {
+  color: #0a3d62;
+  margin-bottom: 0.5em;
+}
+
+.random-destination-section p {
+  margin-bottom: 1em;
+}
+
+.random-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+.random-controls select {
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  min-width: 180px;
+  height: 38px; /* Match button height */
+}
+
+.suggested-city {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #079992; /* Teal color for the result */
+  min-height: 1.5em; /* Reserve space */
+  margin-top: 1em;
+}
+
+/* Visa Disclaimer Text Styling */
+/* Specific styles for the important visa requirement notice. */
+.visa-disclaimer {
+    font-size: 0.9em;
+    color: #cc0000; /* Red color for caution */
+    margin-top: 1.5em;
+    padding: 0.5em;
+    border: 1px solid #ffcccc;
+    background-color: #fffafa;
+    border-radius: 5px;
+}
+
+/* Screen Reader Only Class for Accessibility */
+/* Used to visually hide labels while keeping them accessible to screen readers. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Footer Position */
+/* Ensures the footer remains at the bottom of the viewport. */
 footer {
   margin-top: auto; /* Pushes footer to the bottom of the page */
 }
 
-/* Responsive adjustments for smaller screens */
+/* Responsive Adjustments for Smaller Screens */
+/* Media queries to optimize the layout for various device sizes. */
 @media (max-width: 600px) {
   .search-section {
     padding: 0.5em;
@@ -134,13 +256,23 @@ footer {
     width: 80%; /* Button takes more width */
     max-width: 300px; /* Match input max-width */
   }
+  .booking-buttons button {
+      width: 100%; /* Make buttons full width on very small screens */
+      max-width: 250px; /* Limit width */
+  }
+
+  .random-controls select,
+  .random-controls button {
+    width: 100%; /* Make dropdown and button full width on small screens */
+    max-width: 300px; /* Limit width */
+  }
 
   #map-section {
     height: 350px; /* Adjust map height for smaller screens */
     margin: 1em 0.5em; /* Reduce horizontal margin */
   }
 
-  .info-section {
+  .info-section, .booking-section, .random-destination-section { /* Apply consistent margin to all main sections */
     margin: 1em 0.5em; /* Adjust margin for smaller screens */
   }
 }
