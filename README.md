@@ -7,6 +7,15 @@ Holiday Explorer helps users find ideal travel destinations using the **Google M
 - **External User Goal:** Find the best holiday destination tailored to their interests.
 - **Site Owner Goal:** Guide users to book via the platform and increase conversions through sponsor partnerships.
 
+**Rationale for Development:**
+The core purpose of Holiday Explorer is to provide a seamless and interactive way for users to discover potential holiday destinations. By integrating powerful Google Maps and Places APIs, the application aims to reduce the friction in early-stage travel planning, offering immediate visual context and points of interest. The design prioritizes user-friendliness and accessibility to cater to a broad audience of travelers. The long-term goal is to establish the platform as a go-to resource, eventually incorporating features for booking and partnering with travel agencies to monetize the service. This aligns with the site owner's goal of increasing conversions and sponsor partnerships.
+
+**User Stories:**
+* As a traveler, I want to be able to search for a city by name so that I can see it on a map and identify potential holiday spots.
+* As a traveler, I want to see relevant points of interest like attractions, restaurants, and hotels marked on the map so I can easily plan my itinerary.
+* As a traveler, I want clear feedback if my search input is invalid or if no results are found so I don't get stuck.
+* As a traveler, I want the website to be easy to use on my mobile phone so I can plan on the go.
+
 ---
 
 ## 📄 Table of Contents
@@ -18,44 +27,45 @@ Holiday Explorer helps users find ideal travel destinations using the **Google M
 - [Testing](#testing)
 - [Deployment](#deployment)
 - [Credits](#credits)
-
----
+- [Development Log (Commit History)](#development-log-commit-history) ---
 
 ## ✨ Features
 
 - Responsive, mobile-friendly layout
-- Real-time city search
-- Embedded Google Maps with location pins
-- Display of places using Google Places API (restaurants, hotels, attractions)
-- Error handling and feedback for invalid inputs
-- Clean and intuitive UI with accessibility in mind
+- Real-time city search with dynamic map updates
+- Embedded Google Maps with location pins for attractions, restaurants, and lodging
+- Display of place details (name, vicinity, rating, reviews) in interactive info windows
+- Robust error handling and clear feedback for empty or invalid inputs
+- Clean and intuitive UI with a strong focus on accessibility
 
 ---
 
 ## 🌈 UX Design
 
-**Target Audience**: Travelers researching new destinations
+**Target Audience**: Travelers researching new destinations, ranging from casual explorers to detailed itinerary planners.
 
 **Wireframes**:
 
-- Created using Figma (included in `/docs/design` folder)
+- Created using Figma (included in `/docs/design` folder). [cite_start]These wireframes  [cite_start]guided the structural layout of the `index.html`, ensuring logical flow for search input, map display, and supplementary information.  *Add a brief explanation of how your wireframes influenced the final layout.*
 
 **Accessibility and UX Considerations**:
 
-- High contrast color scheme
-- Keyboard navigation
-- ARIA roles for interactive elements
-- All images include alt text
+- High contrast color scheme for readability.
+- Full keyboard navigation for input fields and buttons.
+- ARIA roles and labels for interactive elements (e.g., `aria-label` for search input and button, `role="application"` for the map, `aria-live="polite"` for error messages) to ensure screen reader compatibility.
+- All images (including the info graphic) include descriptive `alt` text.
+- Clear error messages are dynamically displayed to guide the user.
 
 ---
 
 ## 🛠️ Technologies Used
 
 - HTML5
-- CSS3 (Flexbox, Grid)
-- JavaScript (ES6+)
-- Google Maps JavaScript API
-- Google Places API
+- CSS3 (Flexbox, Grid, Media Queries for responsiveness)
+- JavaScript (ES6+ for interactive functionality)
+- Google Maps JavaScript API (for map embedding and interaction)
+- Google Places API (for searching and displaying points of interest)
+- Google Geocoding API (for converting city names to coordinates)
 - Git & GitHub for version control
 
 ---
@@ -63,108 +73,5 @@ Holiday Explorer helps users find ideal travel destinations using the **Google M
 ## 📚 Installation
 
 1. Clone this repository:
-   ```
-   git clone https://github.com/username/holiday-explorer.git
-   ```
-2. Open `index.html` in a browser or use Live Server
-3. Add your Google Maps API key in `script.js`
-
----
-
-## 🔧 Testing
-
-### Manual Testing
-
-| Test Case         | Input          | Expected Result                        | Pass? |
-| ----------------- | -------------- | -------------------------------------- | ----- |
-| Search city       | "Rome"         | Map shows Rome with points of interest | ✅     |
-| Empty input       | ""             | Error message shown                    | ✅     |
-| Invalid city      | "XYZ"          | Error message shown                    | ✅     |
-| Responsive layout | Resize browser | Layout adjusts                         | ✅     |
-
-### Bugs Found
-
-- **[FIXED]** Initial API call error when input is empty
-- **[FIXED]** Misaligned map on smaller screens
-
-Screenshots included in `/docs/screenshots`
-
----
-
-## ✨ Deployment
-
-- Deployed to GitHub Pages: [View Site](https://username.github.io/holiday-explorer/)
-- Deployment Steps:
-  1. Push to main branch
-  2. Enable GitHub Pages under repo settings
-  3. Confirm no console errors or broken links
-
----
-
-## 👤 Credits
-
-- Custom JS and CSS by [Your Name]
-- Google Maps & Places APIs
-- UI inspiration from [TravelSite.com]
-- API documentation: [Google Maps Platform](https://developers.google.com/maps)
-
-**Note**: All external resources are credited above and inline in the code with comments.
-
----
-
-## 🔐 File Structure
-
-```text
-holiday-explorer/
-├── assets/
-│   ├── css/style.css
-│   ├── js/script.js
-│   └── images/
-├── index.html
-├── README.md
-├── test-plan.md
-└── docs/
-    ├── design/wireframes.png
-    └── screenshots/test-results.png
-```
-
----
-
-## ✅ Development Checklist (Updated)
-
-### 📁 Folder & File Structure
-- [x] Organized directories (CSS, JS, images)
-- [x] External files linked appropriately
-
-### 🔧 Front-End Development
-- [x] Semantic HTML
-- [x] Responsive CSS in external file
-- [x] External JS linked at end of body
-- [x] UX and accessibility principles followed
-- [x] Clean navigation
-- [x] Real-time interactivity + feedback
-- [x] Graphics + visual appeal
-
-### 🔄 JavaScript Interactivity
-- [x] Clean, validated JS code
-- [x] Uses conditionals & loops
-- [x] Handles empty/invalid inputs
-- [x] No console errors
-- [x] Redirect handler for 404s (with fallback homepage link)
-- [x] Linter passed
-
-### 🔢 Testing
-- [x] Manual test plan
-- [x] Bugs logged & explained
-- [x] Screenshot evidence included
-
-### ☁️ Deployment
-- [x] Deployed to GitHub Pages
-- [x] No commented-out code or broken links
-
-### 📅 Documentation
-- [x] Full development story in README
-- [x] Diagrams, wireframes, UX work included
-- [x] Attributions made
-- [x] Descriptive commits throughout
-- [x] Clear markdown formatting
+   ```bash
+   git clone [https://github.com/username/holiday-explorer.git](https://github.com/username/holiday-explorer.git)
