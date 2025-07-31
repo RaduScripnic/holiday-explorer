@@ -62,6 +62,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const suggestedCityDisplay = document.getElementById("suggested-city-display");
   const randomErrorMsg = document.getElementById("random-error-message");
 
+  // ✅ Allow pressing Enter in input field to trigger search
+if (cityInput) {
+  cityInput.addEventListener("keypress", (event) => {
+    if (event.key === "Enter" || event.keyCode === 13) {
+      event.preventDefault();
+      if (searchBtn) {
+        searchBtn.click();
+      }
+    }
+  });
+}
+
   const capitalCities = {
     africa: ["Cairo", "Pretoria", "Nairobi", "Accra", "Abuja", "Marrakech", "Addis Ababa"],
     asia: ["Tokyo", "Beijing", "New Delhi", "Bangkok", "Seoul", "Singapore", "Dubai", "Jakarta"],
@@ -71,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     oceania: ["Canberra", "Wellington", "Suva", "Port Moresby"]
   };
 
+  // Handle search button click
   if (searchBtn) {
     searchBtn.addEventListener("click", () => {
       const city = cityInput.value.trim();
@@ -118,28 +131,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     });
-
-    // 🔑 [NEW] Pressing "Enter" now triggers search — added for accessibility and UX
-    cityInput.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        searchBtn.click();
-      }
-    });
   }
 
+  // Handle flight button
   if (flightsBtn) {
     flightsBtn.addEventListener("click", () => {
       window.open("https://www.skyscanner.net/", "_blank");
     });
   }
 
+  // Handle hotel button
   if (hotelsBtn) {
     hotelsBtn.addEventListener("click", () => {
       window.open("https://www.booking.com/", "_blank");
     });
   }
 
+  // Handle random destination suggestion
   if (suggestBtn) {
     suggestBtn.addEventListener("click", () => {
       const selectedContinent = continentSelect.value;
