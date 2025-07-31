@@ -1,23 +1,14 @@
 // Global variables to store map, PlacesService, and InfoWindow instances.
-// Declared globally so they can be accessed by various functions after initialization.
 let map;
 let service;
 let infowindow;
 let markers = []; // Array to store map markers for clearing
 
-/**
- * @function initMap
- * @description Initializes the Google Map. This function is called as a callback
- * by the Google Maps API script once it has fully loaded.
- * It must be globally accessible.
- *
- * Attribution: This function utilizes the Google Maps JavaScript API.
- * More info: https://developers.google.com/maps/documentation/javascript/overview
- */
+// Called by Google Maps API once loaded
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 5,
-    center: { lat: 48.8566, lng: 2.3522 },
+    center: { lat: 48.8566, lng: 2.3522 }, // Default center: Paris
     mapTypeControl: false,
     streetViewControl: false,
     fullscreenControl: false
@@ -27,56 +18,61 @@ function initMap() {
   service = new google.maps.places.PlacesService(map);
 }
 
-/**
- * @function clearMarkers
- * @description Clears all markers from the map.
- */
+// Remove all markers from the map
 function clearMarkers() {
-  for (let i = 0; i < markers.length; i++) {
-    markers[i].setMap(null); // Remove marker from the map
-  }
-  markers = []; // Clear the markers array
+  markers.forEach(marker => marker.setMap(null));
+  markers = [];
 }
 
+// Create a marker for a given place and add a click listener for info window
+function createMarker(place) {
+  if (!place.geometry || !place.geometry.location) {
+    console.warn("Skipping marker creation for place with invalid location:", place);
+    return;
+  }
+
+  const marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location,
+    title: place.name
+  });
+
+  markers.push(marker);
+
+  marker.addListener("click", () => {
+    infowindow.setContent(`
+      <strong>${place.name}</strong><br>
+      ${place.vicinity ? place.vicinity : ''}
+      ${place.rating ? `<br>Rating: ${place.rating} (${place.user_ratings_total ? place.user_ratings_total : 0} reviews)` : ''}
+    `);
+    infowindow.open(map, marker);
+  });
+}
+
+// All DOM-dependent code inside DOMContentLoaded event listener
 document.addEventListener("DOMContentLoaded", () => {
   const searchBtn = document.getElementById("search-btn");
   const cityInput = document.getElementById("city-input");
   const errorMsg = document.getElementById("error-message");
-
-  // Get the booking buttons
   const flightsBtn = document.getElementById("flights-btn");
   const hotelsBtn = document.getElementById("hotels-btn");
 
-  // NEW: Get elements for the random destination section
   const continentSelect = document.getElementById("continent-select");
   const suggestBtn = document.getElementById("suggest-btn");
   const suggestedCityDisplay = document.getElementById("suggested-city-display");
   const randomErrorMsg = document.getElementById("random-error-message");
 
-
-  // Data for random capital cities (a curated list)
+  // Capital cities data for random suggestions
   const capitalCities = {
-    africa: [
-      "Cairo", "Pretoria", "Nairobi", "Accra", "Abuja", "Marrakech", "Addis Ababa"
-    ],
-    asia: [
-      "Tokyo", "Beijing", "New Delhi", "Bangkok", "Seoul", "Singapore", "Dubai", "Jakarta"
-    ],
-    europe: [
-      "Paris", "London", "Rome", "Berlin", "Madrid", "Amsterdam", "Prague", "Lisbon", "Vienna", "Copenhagen"
-    ],
-    north_america: [
-      "Washington D.C.", "Ottawa", "Mexico City", "Kingston", "Panama City"
-    ],
-    south_america: [
-      "Brasília", "Buenos Aires", "Lima", "Santiago", "Bogotá", "Montevideo"
-    ],
-    oceania: [
-      "Canberra", "Wellington", "Suva", "Port Moresby"
-    ]
+    africa: ["Cairo", "Pretoria", "Nairobi", "Accra", "Abuja", "Marrakech", "Addis Ababa"],
+    asia: ["Tokyo", "Beijing", "New Delhi", "Bangkok", "Seoul", "Singapore", "Dubai", "Jakarta"],
+    europe: ["Paris", "London", "Rome", "Berlin", "Madrid", "Amsterdam", "Prague", "Lisbon", "Vienna", "Copenhagen"],
+    north_america: ["Washington D.C.", "Ottawa", "Mexico City", "Kingston", "Panama City"],
+    south_america: ["Brasília", "Buenos Aires", "Lima", "Santiago", "Bogotá", "Montevideo"],
+    oceania: ["Canberra", "Wellington", "Suva", "Port Moresby"]
   };
 
-
+  // Event listener for city search button
   if (searchBtn) {
     searchBtn.addEventListener("click", () => {
       const city = cityInput.value.trim();
@@ -93,9 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Clear existing markers before performing a new search
       clearMarkers();
 
+      // Geocode city name to lat/lng
       const geocoder = new google.maps.Geocoder();
       geocoder.geocode({ address: city }, (results, status) => {
         if (status === google.maps.GeocoderStatus.OK && results[0]) {
@@ -104,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
           map.setCenter(location);
           map.setZoom(13);
 
+          // Search for nearby tourist attractions, restaurants, lodging
           const request = {
             location: location,
             radius: 5000,
@@ -111,11 +108,11 @@ document.addEventListener("DOMContentLoaded", () => {
           };
 
           service.nearbySearch(request, (places, searchStatus) => {
-            if (searchStatus === google.places.PlacesServiceStatus.OK && places && places.length > 0) {
+            if (searchStatus === google.maps.places.PlacesServiceStatus.OK && places && places.length > 0) {
               places.forEach(place => {
                 createMarker(place);
               });
-            } else if (searchStatus === google.places.PlacesServiceStatus.ZERO_RESULTS) {
+            } else if (searchStatus === google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
               errorMsg.textContent = `No attractions, restaurants, or lodging found near ${city}.`;
             } else {
               errorMsg.textContent = `Places search failed: ${searchStatus}. Please try again later.`;
@@ -130,25 +127,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Add event listeners for the new booking buttons
+  // Open Skyscanner flights site
   if (flightsBtn) {
     flightsBtn.addEventListener("click", () => {
       window.open("https://www.skyscanner.net/", "_blank");
     });
   }
 
+  // Open Booking.com hotels site
   if (hotelsBtn) {
     hotelsBtn.addEventListener("click", () => {
       window.open("https://www.booking.com/", "_blank");
     });
   }
 
-  // NEW: Event listener for random destination suggestion
+  // Random destination suggestion based on continent
   if (suggestBtn) {
     suggestBtn.addEventListener("click", () => {
       const selectedContinent = continentSelect.value;
-      suggestedCityDisplay.textContent = ""; // Clear previous suggestion
-      randomErrorMsg.textContent = ""; // Clear previous error
+      suggestedCityDisplay.textContent = "";
+      randomErrorMsg.textContent = "";
 
       if (!selectedContinent) {
         randomErrorMsg.textContent = "Please choose a continent.";
@@ -160,45 +158,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const randomIndex = Math.floor(Math.random() * cities.length);
         const randomCity = cities[randomIndex];
         suggestedCityDisplay.textContent = `How about: ${randomCity}!`;
-        cityInput.value = randomCity; // Populate search input with the suggested city
-        searchBtn.click(); // Programmatically click the search button to show on map
+        cityInput.value = randomCity;
+        searchBtn.click();
       } else {
         randomErrorMsg.textContent = "No cities available for this continent.";
       }
     });
   }
 });
-
-/**
- * @function createMarker
- * @description Creates a Google Map marker for a given place object and adds a click listener
- * to display an InfoWindow with place details.
- * @param {object} place - A Google Maps PlaceResult object containing details about the place.
- *
- * Attribution: This function utilizes the Google Maps JavaScript API (Markers and InfoWindows).
- * More info: https://developers.google.com/maps/documentation/javascript/markers
- * More info: https://developers.google.com/maps/documentation/javascript/infowindows
- */
-function createMarker(place) {
-  if (!place.geometry || !place.geometry.location) {
-    console.warn("Skipping marker creation for place with invalid location:", place);
-    return;
-  }
-
-  const marker = new google.maps.Marker({
-    map: map,
-    position: place.geometry.location,
-    title: place.name
-  });
-
-  markers.push(marker); // Add the new marker to our global array
-
-  marker.addListener("click", () => {
-    infowindow.setContent(`
-      <strong>${place.name}</strong><br>
-      ${place.vicinity ? place.vicinity : ''}
-      ${place.rating ? `<br>Rating: ${place.rating} (${place.user_ratings_total ? place.user_ratings_total : 0} reviews)` : ''}
-    `);
-    infowindow.open(map, marker);
-  });
-}
