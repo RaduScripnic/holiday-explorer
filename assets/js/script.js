@@ -62,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const suggestedCityDisplay = document.getElementById("suggested-city-display");
   const randomErrorMsg = document.getElementById("random-error-message");
 
-  // Capital cities data for random suggestions
   const capitalCities = {
     africa: ["Cairo", "Pretoria", "Nairobi", "Accra", "Abuja", "Marrakech", "Addis Ababa"],
     asia: ["Tokyo", "Beijing", "New Delhi", "Bangkok", "Seoul", "Singapore", "Dubai", "Jakarta"],
@@ -72,7 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
     oceania: ["Canberra", "Wellington", "Suva", "Port Moresby"]
   };
 
-  // Event listener for city search button
   if (searchBtn) {
     searchBtn.addEventListener("click", () => {
       const city = cityInput.value.trim();
@@ -91,16 +89,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       clearMarkers();
 
-      // Geocode city name to lat/lng
       const geocoder = new google.maps.Geocoder();
       geocoder.geocode({ address: city }, (results, status) => {
         if (status === google.maps.GeocoderStatus.OK && results[0]) {
           const location = results[0].geometry.location;
-
           map.setCenter(location);
           map.setZoom(13);
 
-          // Search for nearby tourist attractions, restaurants, lodging
           const request = {
             location: location,
             radius: 5000,
@@ -109,9 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           service.nearbySearch(request, (places, searchStatus) => {
             if (searchStatus === google.maps.places.PlacesServiceStatus.OK && places && places.length > 0) {
-              places.forEach(place => {
-                createMarker(place);
-              });
+              places.forEach(place => createMarker(place));
             } else if (searchStatus === google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
               errorMsg.textContent = `No attractions, restaurants, or lodging found near ${city}.`;
             } else {
@@ -125,23 +118,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     });
+
+    // 🔑 [NEW] Pressing "Enter" now triggers search — added for accessibility and UX
+    cityInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        searchBtn.click();
+      }
+    });
   }
 
-  // Open Skyscanner flights site
   if (flightsBtn) {
     flightsBtn.addEventListener("click", () => {
       window.open("https://www.skyscanner.net/", "_blank");
     });
   }
 
-  // Open Booking.com hotels site
   if (hotelsBtn) {
     hotelsBtn.addEventListener("click", () => {
       window.open("https://www.booking.com/", "_blank");
     });
   }
 
-  // Random destination suggestion based on continent
   if (suggestBtn) {
     suggestBtn.addEventListener("click", () => {
       const selectedContinent = continentSelect.value;
