@@ -121,9 +121,9 @@ select:focus { /* Added select for random destination dropdown */
 .info-graphic {
   max-width: 100%;
   height: auto;
-  border-radius: 4px;
-  margin-bottom: 1em;
+  object-fit: contain;
 }
+
 
 /* Booking Section Styles */
 /* Styles for the section providing links to external booking websites. */
