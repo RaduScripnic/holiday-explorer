@@ -27,7 +27,9 @@ The core purpose of Holiday Explorer is to provide a seamless and interactive wa
 - [Testing](#testing)
 - [Deployment](#deployment)
 - [Credits](#credits)
-- [Development Log (Commit History)](#development-log-commit-history) ---
+- [Development Log (Commit History)](#development-log-commit-history)
+
+---
 
 ## ✨ Features
 
@@ -46,9 +48,16 @@ The core purpose of Holiday Explorer is to provide a seamless and interactive wa
 
 **Wireframes**:
 
-- Created using Figma (included in `/docs/design` folder). [cite_start]These wireframes  [cite_start]guided the structural layout of the `index.html`, ensuring logical flow for search input, map display, and supplementary information.  *Add a brief explanation of how your wireframes influenced the final layout.*
+- Created using Figma (included in `/docs/design` folder).
 
-**Accessibility and UX Considerations**:
+**How Wireframes Influenced Layout:**
+The initial wireframes guided the structure of `index.html`, defining the clear vertical flow from the header and search input to the map view and information sections. Key layout features like section centering, interactive buttons, and map positioning were based on wireframe planning.
+
+**Wireframe Preview:**
+
+![Homepage Wireframe](assets/docs/design/homepage-wireframe.png)
+
+**Accessibility and UX Considerations:**
 
 - High contrast color scheme for readability.
 - Full keyboard navigation for input fields and buttons.
@@ -74,4 +83,85 @@ The core purpose of Holiday Explorer is to provide a seamless and interactive wa
 
 1. Clone this repository:
    ```bash
-   git clone [https://github.com/username/holiday-explorer.git](https://github.com/username/holiday-explorer.git)
+   git clone https://github.com/RaduScripnic/holiday-explorer
+   ```
+
+---
+
+## 🔧 Testing
+
+### Manual Testing Performed:
+
+| Test | Input | Expected Result | Actual Result | Status |
+|------|-------|------------------|----------------|--------|
+| 1 | "Paris" | Map centers, markers shown | ✅ Works as expected | Pass |
+| 2 | Empty input | Error message shown | ✅ Works | Pass |
+| 3 | Invalid city | Graceful error feedback | ✅ Message shown | Pass |
+| 4 | Click marker | Info window shows place info | ✅ Works | Pass |
+| 5 | Select continent and suggest | Random city inserted | ✅ Works and auto-searches | Pass |
+
+### Screenshot Evidence:
+
+#### Search working:
+![Search for Paris](assets/docs/screenshots/search-paris.png)
+
+#### Empty input error:
+![Empty Search Input Error](assets/docs/screenshots/empty-input-error.png)
+
+#### Random destination:
+![Random Destination](assets/docs/screenshots/random-destination.png)
+
+#### Responsive view (mobile):
+![Mobile Layout](assets/docs/screenshots/mobile-layout.png)
+
+### Bugs Found & Fixed:
+- [x] Fixed bug where invalid city input crashed the map
+- [x] Resolved issue with image being stretched
+- [x] Added fallback if Google Places API returns no results
+
+### Known Issues:
+- [ ] Some cities return few POIs depending on Google’s local data availability
+
+### Testing Tools:
+- Manual browser testing (Chrome, Firefox, mobile viewports)
+- DevTools for responsive design
+- JavaScript error console (no active errors)
+
+---
+
+## 🚀 Deployment
+
+This project is deployed using GitHub Pages:
+
+1. Code pushed to GitHub repository: `https://github.com/RaduScripnic/holiday-explorer`
+2. GitHub Pages settings:
+   - Branch: `main`
+   - Folder: `/ (root)`
+3. GitHub generated URL: `https://github.com/RaduScripnic/holiday-explorer`
+4. A `404.html` page was added to redirect broken URLs to the homepage
+
+---
+
+## 📅 Credits
+
+- **Google Maps, Places, and Geocoding APIs**: [Google Developer Docs](https://developers.google.com/maps/documentation)
+- **JavaScript logic inspired by**: [Google Places API Examples](https://developers.google.com/maps/documentation/javascript/examples/places-searchbox)
+- All logic that uses these APIs is fully commented with attribution in `script.js`
+- Icons & imagery from royalty-free sources (Unsplash/Pixabay if applicable)
+
+---
+
+## 📝 Development Log (Commit History)
+
+Key commits (more added since resubmission):
+- `feat: add random destination logic`
+- `fix: handle invalid input errors`
+- `style: improve image scaling and layout`
+- `feat: add 404.html redirect file`
+- `docs: update README with full user stories and testing details`
+
+Full commit history available on GitHub.
+
+---
+
+For any questions or contributions, please raise an issue or fork the repo!
