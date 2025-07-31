@@ -121,7 +121,8 @@ select:focus { /* Added select for random destination dropdown */
 .info-graphic {
   max-width: 100%;
   height: auto;
-  object-fit: contain;
+  object-fit: cover; /* Use cover or contain as needed */
+  border-radius: 8px;
 }
 
 
