@@ -1,4 +1,18 @@
-// Global variables to store map, PlacesService, and InfoWindow instances.
+// -------------------------------------------------------------
+// 🌍 HOLIDAY EXPLORER - CUSTOM JAVASCRIPT
+// Author: Radu Scripnic
+// Note: Code is a mix of original work + API usage examples.
+// External sources credited inline below.
+// -------------------------------------------------------------
+
+// -------------------------------------------------------------
+// GOOGLE MAPS API SETUP
+// -------------------------------------------------------------
+// The following functions (initMap, createMarker, clearMarkers)
+// were adapted from Google Maps JavaScript API documentation:
+// https://developers.google.com/maps/documentation/javascript
+// with modifications made by the author to fit project needs.
+// -------------------------------------------------------------
 let map;
 let service;
 let infowindow;
@@ -48,8 +62,13 @@ function createMarker(place) {
     infowindow.open(map, marker);
   });
 }
-
-// All DOM-dependent code inside DOMContentLoaded event listener
+// -------------------------------------------------------------
+// CUSTOM FUNCTIONALITY - ORIGINAL CODE BY AUTHOR
+// -------------------------------------------------------------
+// The following DOM handling, random destination feature,
+// validation messages, and integration with external booking
+// sites are original work by the author.
+// -------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
   const searchBtn = document.getElementById("search-btn");
   const cityInput = document.getElementById("city-input");

@@ -60,6 +60,7 @@ The design is mobile-first and accessibility-focused, supporting a wide range of
 ## 🎨 UX & Accessibility
 
 **Wireframes:** Designed in Figma (`/docs/design/wireframe.png`)  
+
 **Accessibility Features:**
 - Proper use of semantic HTML
 - `aria-label` on all inputs and buttons
@@ -119,9 +120,6 @@ The design is mobile-first and accessibility-focused, supporting a wide range of
 | CSS | W3C Validator | ✅ |
 | JS | JSHint | ✅ |
 
-Screenshots located in: `assets/docs/screenshots/`  
-Validation screenshots also stored for documentation.
-
 ---
 
 ## 🐛 Bug Fixes
@@ -132,6 +130,76 @@ Validation screenshots also stored for documentation.
 | Previous markers stayed on new search | Added `clearMarkers()` function | ✅ |
 | API key errors | Replaced with valid scoped key | ✅ |
 | Map failed to load | Checked `initMap()` on load | ✅ |
+
+---
+
+## 🛠️ Development Cycle
+
+The project was developed iteratively, with progress tracked through commits. Below is a summary of the main stages:
+
+### Initial Setup
+- Project scaffold with HTML, CSS, and JS.
+- GitHub repo created and first commit pushed.
+
+### Map Integration
+- Added Google Maps API with a default Paris view.
+- **Commit:** Added Google Maps integration with default center.
+
+### Search & Error Handling
+- Implemented city search using Geocoding API.
+- Added inline error messages for invalid/empty input.
+
+### Places & Markers
+- Integrated Google Places API for attractions, restaurants, and hotels.
+- Created `clearMarkers()` to reset the map state.
+
+### Random Destination
+- Added continent-based city suggestion feature.
+- **Commit:** Added random destination button with city lists.
+
+### User Experience Enhancements
+- Added Enter key trigger for searches.
+- Linked Skyscanner (flights) and Booking.com (hotels).
+
+### Testing & Finalization
+- Validated HTML, CSS, and JS.
+- Fixed bugs and documented everything in README.
+
+### 📜 Example Commit Log
+
+| Commit Hash | Message | Stage |
+|------------|--------|-------|
+| a1b2c3d | Initial project setup with HTML/CSS/JS scaffold | Initial Setup |
+| b2c3d4e | Added Google Maps API integration | Map Integration |
+| c3d4e5f | Implemented city search with geocoding | Search Functionality |
+| d4e5f6g | Added nearby places search and markers | Places & Markers |
+| e5f6g7h | Added random destination suggestion feature | Random Destination |
+| f6g7h8i | Improved UX with Enter key + external links | UX Enhancements |
+| g7h8i9j | Bug fixes and validation compliance | Testing & Bug Fixes |
+
+---
+
+## 📚 Credits & Attribution
+
+To clearly separate my work from external sources:
+
+**Google Maps & Places API**
+- Functions like `initMap()`, `createMarker()`, and use of `PlacesService` were adapted from official Google Maps documentation.
+- Code was modified and extended for this project.
+
+**Geocoding & Error Handling**
+- Based on examples from Google API docs, adapted with custom validation and inline error messages.
+
+**Booking.com & Skyscanner Links**
+- External links provided for user convenience.
+
+**Original Work**
+- App design, random city suggestion feature, UX flow, and integration logic were created by Radu Scripnic.
+
+**Testing Tools**
+- W3C HTML Validator
+- W3C CSS Validator
+- JSHint
 
 ---
 
